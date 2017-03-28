@@ -3,6 +3,10 @@ import org.aspectj.bridge.IMessage
 import org.aspectj.bridge.MessageHandler
 import org.aspectj.tools.ajc.Main
 
+apply plugin: 'com.android.library'
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'com.github.dcendents.android-maven'
+
 buildscript {
     repositories {
         mavenCentral()
@@ -13,7 +17,6 @@ buildscript {
     }
 }
 
-apply plugin: 'com.android.library'
 
 repositories {
     mavenCentral()
@@ -31,6 +34,12 @@ android {
         abortOnError false
     }
 }
+
+
+def siteUrl = 'https://github.com/gyorgygabor/TraceDebug'      // Homepage URL of the library
+def gitUrl = 'https://github.com/gyorgygabor/TraceDebug.git'   // Git repository URL
+group = "com.gyorgygabor.tracedebug"
+version = "0.1.0"
 
 android.libraryVariants.all { variant ->
     LibraryPlugin plugin = project.plugins.getPlugin(LibraryPlugin)
@@ -65,5 +74,31 @@ android.libraryVariants.all { variant ->
                     break;
             }
         }
+    }
+}
+
+
+task exportJar(type: Copy) {
+    from('build/intermediates/bundles/release/')
+    into('release/')
+    include('classes.jar')
+    rename('classes.jar', 'tracedebug.jar')
+}
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+bintray {
+    user = properties.getProperty("bintray.user")
+    key = properties.getProperty("bintray.apikey")
+
+    configurations = ['archives']
+    pkg {
+        repo = "maven"
+        name = "tracedebug"
+        websiteUrl = siteUrl
+        vcsUrl = gitUrl
+        licenses = ["Apache-2.0"]
+        publish = true
     }
 }
