@@ -4,7 +4,7 @@ import org.aspectj.tools.ajc.Main
 
 buildscript {
     repositories {
-        mavenCentral()
+        jcenter()
     }
     dependencies {
         classpath 'org.aspectj:aspectjtools:1.8.1'
