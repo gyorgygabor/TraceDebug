@@ -1,5 +1,5 @@
 # TraceDebug
-Prints the annotated method`s stacktrace. Based on Jake Wharton`s hugo library.
+- Prints the annotated method`s stacktrace. Based on hugo library by Jake Wharton.
 - To add to your project, you need the add Jake Wharton`s hugo library and add the following lines to your app.gradle:
 
 ```gradle
