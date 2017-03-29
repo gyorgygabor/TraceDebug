@@ -13,6 +13,27 @@ dependencies {
     compile 'com.gyorgygabor.tracedebug:runtimeannotation:0.1.1'
 }
 ```
+
+
+How to use
+-------
+
+```java
+    //prints the first 5 methods from the stacktrace
+    @DebugTrace(5)
+    private void someOtherMehtod() {
+        Log.i(TAG, "someOtherMehtod() called");
+    }
+```
+```java
+    //prints the first 40(default) methods from the stacktrace
+    @DebugTrace
+    private void someMehtod() {
+        Log.i(TAG, "someMehtod() called");
+    }
+```
+
+
 NOTE
 -------
 The library is still in alpha version.
