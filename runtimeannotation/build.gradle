@@ -39,9 +39,15 @@ android {
 def siteUrl = 'https://github.com/gyorgygabor/TraceDebug'      // Homepage URL of the library
 def gitUrl = 'https://github.com/gyorgygabor/TraceDebug.git'   // Git repository URL
 group = "com.gyorgygabor.tracedebug"
-version = "0.1.0"
+version = "0.1.1"
 
+final def log = project.logger
 android.libraryVariants.all { variant ->
+    println "Check build type: '${variant.buildType.name}'."
+    if (!variant.buildType.isDebuggable()) {
+        println"Skipping the post compile for non-debuggable build type '${variant.buildType.name}'."
+        return;
+    }
     LibraryPlugin plugin = project.plugins.getPlugin(LibraryPlugin)
     JavaCompile javaCompile = variant.javaCompile
     javaCompile.doLast {
@@ -57,7 +63,6 @@ android.libraryVariants.all { variant ->
         MessageHandler handler = new MessageHandler(true);
         new Main().run(args, handler)
 
-        def log = project.logger
         for (IMessage message : handler.getMessages(null, true)) {
             switch (message.getKind()) {
                 case IMessage.ABORT:

@@ -45,8 +45,9 @@ final def log = project.logger
 final def variants = project.android.applicationVariants
 
 variants.all { variant ->
+    println "Check build type: '${variant.buildType.name}'."
     if (!variant.buildType.isDebuggable()) {
-        log.debug("Skipping non-debuggable build type '${variant.buildType.name}'.")
+        println"Skipping the post compile for non-debuggable build type '${variant.buildType.name}'."
         return;
     }
 
