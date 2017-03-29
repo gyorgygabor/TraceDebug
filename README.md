@@ -21,15 +21,15 @@ How to use
 ```java
     //prints the first 5 methods from the stacktrace
     @DebugTrace(5)
-    private void someOtherMehtod() {
-        Log.i(TAG, "someOtherMehtod() called");
+    private void someMehtod() {
+        Log.i(TAG, "someMehtod() called");
     }
 ```
 ```java
     //prints the first 40(default) methods from the stacktrace
     @DebugTrace
-    private void someMehtod() {
-        Log.i(TAG, "someMehtod() called");
+    private void someOtherMehtod() {
+        Log.i(TAG, "someOtherMehtod() called");
     }
 ```
 
