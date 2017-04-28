@@ -32,12 +32,14 @@ How to use
         Log.i(TAG, "someOtherMehtod() called");
     }
 ```
-
-
-NOTE
--------
-The library is still in alpha version.
-
+The output will looks like below:
+```java
+your-package-name I/TraceDebug: => com.tracedebug.gyorgygabor.tracedebug.MainActivity.someMehtod4(MainActivity.java:34)
+your-package-name I/TraceDebug: => com.tracedebug.gyorgygabor.tracedebug.MainActivity.someMehtod3(MainActivity.java:29)
+your-package-name I/TraceDebug: => com.tracedebug.gyorgygabor.tracedebug.MainActivity.someMehtod2(MainActivity.java:25)
+your-package-name I/TraceDebug: => com.tracedebug.gyorgygabor.tracedebug.MainActivity.someMehtod1(MainActivity.java:21)
+your-package-name I/TraceDebug: => com.tracedebug.gyorgygabor.tracedebug.MainActivity.onCreate(MainActivity.java:17)
+```
 
 License
 --------
