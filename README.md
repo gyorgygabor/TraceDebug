@@ -1,6 +1,6 @@
 # TraceDebug
 - Prints the annotated method`s stacktrace. It is an extension for the [hugo](https://github.com/JakeWharton/hugo) library by Jake Wharton.
-- To use it, you need the add the [hugo](https://github.com/JakeWharton/hugo) library and add the following lines to your app.gradle:
+- To use it, you need to add the [hugo](https://github.com/JakeWharton/hugo) library and add the following lines to your app.gradle:
 
 ```gradle
 repositories {
