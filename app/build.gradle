@@ -7,7 +7,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'org.aspectj:aspectjtools:1.8.1'
+        classpath 'org.aspectj:aspectjtools:1.8.10'
     }
 }
 apply plugin: 'com.android.application'
@@ -37,7 +37,7 @@ android {
 
 dependencies {
     compile project(path: ':runtimeannotation')
-    compile 'org.aspectj:aspectjrt:1.8.1'
+    compile 'org.aspectj:aspectjrt:1.8.10'
 }
 
 
@@ -54,11 +54,12 @@ variants.all { variant ->
     JavaCompile javaCompile = variant.javaCompile
     javaCompile.doLast {
         String[] args = ["-showWeaveInfo",
-                         "-1.5",
+                         "-1.7",
                          "-inpath", javaCompile.destinationDir.toString(),
                          "-aspectpath", javaCompile.classpath.asPath,
                          "-d", javaCompile.destinationDir.toString(),
                          "-classpath", javaCompile.classpath.asPath,
+                         "-log", "weave.log",
                          "-bootclasspath", project.android.bootClasspath.join(File.pathSeparator)]
         log.debug "ajc args: " + Arrays.toString(args)
 

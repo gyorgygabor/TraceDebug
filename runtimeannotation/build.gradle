@@ -1,39 +1,24 @@
-import com.android.build.gradle.LibraryPlugin
-import org.aspectj.bridge.IMessage
-import org.aspectj.bridge.MessageHandler
-import org.aspectj.tools.ajc.Main
+apply plugin: 'java'
 
-apply plugin: 'com.android.library'
-apply plugin: 'com.jfrog.bintray'
-apply plugin: 'com.github.dcendents.android-maven'
 
 buildscript {
     repositories {
-        mavenCentral()
+        maven {
+            url "https://maven.eveoh.nl/content/repositories/releases"
+        }
     }
+
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.1.0'
-        classpath 'org.aspectj:aspectjtools:1.8.1'
+        classpath "nl.eveoh:gradle-aspectj:1.4"
+
     }
 }
 
-
-repositories {
-    mavenCentral()
+project.ext {
+    aspectjVersion = '1.8.10'
 }
+apply plugin: 'aspectj'
 
-dependencies {
-    compile 'org.aspectj:aspectjrt:1.8.1'
-}
-
-android {
-    compileSdkVersion 21
-    buildToolsVersion '25.0.0'
-
-    lintOptions {
-        abortOnError false
-    }
-}
 
 
 def siteUrl = 'https://github.com/gyorgygabor/TraceDebug'      // Homepage URL of the library
@@ -41,47 +26,8 @@ def gitUrl = 'https://github.com/gyorgygabor/TraceDebug.git'   // Git repository
 group = "com.gyorgygabor.tracedebug"
 version = "0.1.1"
 
-final def log = project.logger
-android.libraryVariants.all { variant ->
-    println "Check build type: '${variant.buildType.name}'."
-    if (!variant.buildType.isDebuggable()) {
-        println"Skipping the post compile for non-debuggable build type '${variant.buildType.name}'."
-        return;
-    }
-    LibraryPlugin plugin = project.plugins.getPlugin(LibraryPlugin)
-    JavaCompile javaCompile = variant.javaCompile
-    javaCompile.doLast {
-        String[] args = ["-showWeaveInfo",
-                         "-1.5",
-                         "-inpath", javaCompile.destinationDir.toString(),
-                         "-aspectpath", javaCompile.classpath.asPath,
-                         "-d", javaCompile.destinationDir.toString(),
-                         "-classpath", javaCompile.classpath.asPath,
-                         "-bootclasspath", plugin.project.android.bootClasspath.join(
-                File.pathSeparator)]
-
-        MessageHandler handler = new MessageHandler(true);
-        new Main().run(args, handler)
-
-        for (IMessage message : handler.getMessages(null, true)) {
-            switch (message.getKind()) {
-                case IMessage.ABORT:
-                case IMessage.ERROR:
-                case IMessage.FAIL:
-                    log.error message.message, message.thrown
-                    break;
-                case IMessage.WARNING:
-                case IMessage.INFO:
-                    log.info message.message, message.thrown
-                    break;
-                case IMessage.DEBUG:
-                    log.debug message.message, message.thrown
-                    break;
-            }
-        }
-    }
-}
-
+project.convention.plugins.java.sourceCompatibility = org.gradle.api.JavaVersion.VERSION_1_7
+project.convention.plugins.java.targetCompatibility = org.gradle.api.JavaVersion.VERSION_1_7
 
 task exportJar(type: Copy) {
     from('build/intermediates/bundles/release/')
@@ -92,7 +38,7 @@ task exportJar(type: Copy) {
 
 Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
-
+/*
 bintray {
     user = properties.getProperty("bintray.user")
     key = properties.getProperty("bintray.apikey")
@@ -106,4 +52,4 @@ bintray {
         licenses = ["Apache-2.0"]
         publish = true
     }
-}
+}*/
