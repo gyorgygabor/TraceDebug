@@ -1,6 +1,6 @@
 apply plugin: 'java'
-
-
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'com.github.dcendents.android-maven'
 buildscript {
     repositories {
         maven {
@@ -24,7 +24,7 @@ apply plugin: 'aspectj'
 def siteUrl = 'https://github.com/gyorgygabor/TraceDebug'      // Homepage URL of the library
 def gitUrl = 'https://github.com/gyorgygabor/TraceDebug.git'   // Git repository URL
 group = "com.gyorgygabor.tracedebug"
-version = "0.1.1"
+version = "1.0.0"
 
 project.convention.plugins.java.sourceCompatibility = org.gradle.api.JavaVersion.VERSION_1_7
 project.convention.plugins.java.targetCompatibility = org.gradle.api.JavaVersion.VERSION_1_7
@@ -38,7 +38,6 @@ task exportJar(type: Copy) {
 
 Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
-/*
 bintray {
     user = properties.getProperty("bintray.user")
     key = properties.getProperty("bintray.apikey")
@@ -52,4 +51,4 @@ bintray {
         licenses = ["Apache-2.0"]
         publish = true
     }
-}*/
+}

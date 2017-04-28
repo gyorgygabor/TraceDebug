@@ -10,7 +10,7 @@ repositories {
 }
 
 dependencies {
-    compile 'com.gyorgygabor.tracedebug:runtimeannotation:0.1.1'
+    compile 'com.gyorgygabor.tracedebug:runtimeannotation:1.0.0'
 }
 ```
 
